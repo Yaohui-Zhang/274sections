@@ -49,6 +49,7 @@ class AStar(object):
         Hint: self.occupancy is a DetOccupancyGrid2D object, take a look at its methods for what might be
               useful here
         """
+        x = np.array(x)
         ########## Code starts here ##########
         return self.statespace_lo[0] <= x[0] <= self.statespace_hi[0] and \
                 self.statespace_lo[1] <= x[1] <= self.statespace_hi[1] and \

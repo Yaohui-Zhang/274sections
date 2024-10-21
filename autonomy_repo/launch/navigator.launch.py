@@ -44,7 +44,7 @@ def generate_launch_description():
             # student's navigator node
             Node(
                 executable="navigator.py",
-                package="asl_tb3_lib",
+                package="autonomy_repo",
                 parameters=[
                     {"use_sim_time": use_sim_time},
                 ]
