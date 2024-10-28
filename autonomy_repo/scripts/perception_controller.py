@@ -12,12 +12,22 @@ class PerceptionController(BaseController):
     def __init__(self) -> None:
         super().__init__("perception_controller")
         self.declare_parameter("active", True)
+        self.detected_time = None
 
-        self.image_sub = self.create_subscription(Bool, "/detector_bool", self.detected_callback, 10)
+        self.create_subscription(Bool, "/detector_bool", self.detected_callback, 10)
 
     def detected_callback(self, msg: Bool):
         if msg.data == True:
-            self.set_parameters([rclpy.Parameter("active", value=False)])
+            pre_time = self.detected_time
+            self.detected_time = self.get_clock().now().nanoseconds / 1e9
+            if pre_time is None:
+                self.set_parameters([rclpy.Parameter("active", value=False)])
+            else:
+                if self.detected_time-pre_time>=6:
+                    self.set_parameters([rclpy.Parameter("active", value=False)])
+            # self.set_parameters([rclpy.Parameter("active", value=False)])
+
+                
     
     @property
     def active(self)->bool:
