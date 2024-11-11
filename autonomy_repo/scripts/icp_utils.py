@@ -97,8 +97,16 @@ def icp(
 
     prev_error = 0
     ########### YOUR CODE STARTS HERE ###########
-    for i in range(max_iterations):
-        dist,idxs=nearest_neighbor(src[:m])
+    for i in trange(max_iterations):
+      dist,idxs=nearest_neighbor(src[:m,:].T,dst[:m,:].T)
+      neighbors=(dst[:m,:].T)[idxs]
+      T,_,_=best_fit_transform(src[:m,:].T,neighbors)
+      #src (m+1)*n
+      src=T@src
+      err=np.mean(dist)
+      if abs(err-prev_error)<tolerance:
+        break
+      prev_error=err
     ########### YOUR CODE ENDS HERE ###########
     # calculate final transformation
     T,_,_ = best_fit_transform(A, src[:m,:].T)
