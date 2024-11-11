@@ -42,13 +42,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 18,
+				"line" : 19,
 				"parent" : 0
 			},
 			{
 				"command" : 5,
 				"file" : 0,
-				"line" : 33,
+				"line" : 34,
 				"parent" : 0
 			},
 			{
@@ -236,7 +236,8 @@
 			"paths" : 
 			[
 				"scripts/perception_controller.py",
-				"scripts/keyboard_teleop.py"
+				"scripts/keyboard_teleop.py",
+				"scripts/icp_node.py"
 			],
 			"type" : "file"
 		},

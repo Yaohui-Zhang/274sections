@@ -97,7 +97,7 @@ def icp(
 
     prev_error = 0
     ########### YOUR CODE STARTS HERE ###########
-    for i in trange(max_iterations):
+    for i in range(max_iterations):
       dist,idxs=nearest_neighbor(src[:m,:].T,dst[:m,:].T)
       neighbors=(dst[:m,:].T)[idxs]
       T,_,_=best_fit_transform(src[:m,:].T,neighbors)

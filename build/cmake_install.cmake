@@ -46,6 +46,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/autonomy_repo" TYPE PROGRAM FILES
     "/home/aa274/autonomy_ws/src/274sections/autonomy_repo/scripts/perception_controller.py"
     "/home/aa274/autonomy_ws/src/274sections/autonomy_repo/scripts/keyboard_teleop.py"
+    "/home/aa274/autonomy_ws/src/274sections/autonomy_repo/scripts/icp_node.py"
     )
 endif()
 

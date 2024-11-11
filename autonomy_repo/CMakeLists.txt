@@ -12,6 +12,7 @@ find_package(ament_cmake REQUIRED)
 install(PROGRAMS
     scripts/perception_controller.py
     scripts/keyboard_teleop.py
+    scripts/icp_node.py
     DESTINATION lib/${PROJECT_NAME}
 )
 
