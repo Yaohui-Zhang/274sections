@@ -51,8 +51,8 @@ class ICPNode(Node):
         self.marker.ns = "icp"
         self.marker.type = 2
         self.marker.pose.orientation.w = 1.0
-        self.marker.scale.x = 0.05
-        self.marker.scale.y = 0.05
+        self.marker.scale.x = 0.2
+        self.marker.scale.y = 0.2
         self.marker.scale.z = 0.05
         self.marker.color.r = 1.0
         self.marker.color.g = 0.0
@@ -109,17 +109,23 @@ class ICPNode(Node):
 
         ### TODO: Task 3.5 ###
         pcarray=get_pcd_array_from_point_cloud(msg)
-        points_lidar=np.hstack((pcarray,np.ones(pcarray.shape[0],1)))
+        print(pcarray)
+        points_lidar=np.hstack((np.array(pcarray),np.ones((pcarray.shape[0],1))))
         pc=(self.lidar_pose@points_lidar.T).T[:,:3]
         new_pc=o3d.geometry.PointCloud()
         new_pc.points=o3d.utility.Vector3dVector(pc)
         new_pc=new_pc.uniform_down_sample(10)
         ### Task 3.5 ###
         ### TODO: Task 3.6 ###
-        if self.use_open3d:
-            self.transformation=open3d_icp(new_pc,self.prev_pcd)
+        
+        if self.transformation is None:
+            t_init=np.eye(4)
         else:
-            self.transformation=icp(np.array(new_pc),np.array(self.prev_pcd))
+            t_init=self.transformation
+        if self.use_open3d:
+            self.transformation=open3d_icp(new_pc,self.prev_pcd, t_init)
+        else:
+            self.transformation=icp(np.array(new_pc),np.array(self.prev_pcd),t_init)
         ### Task 3.6 ###
         self.pose=self.pose@self.transformation
         ### TODO: Task 3.7 ###
@@ -130,7 +136,7 @@ class ICPNode(Node):
         ### TODO: Task 3.8 ###
         self.marker.pose.position.x=self.pose[0,3]
         self.marker.pose.position.y=self.pose[1,3]
-        self.marker.pose.position.z=self.pose[2,3]
+        # self.marker.pose.position.z=self.pose[2,3]
         self.marker_pub.publish(self.marker)
         ### Task 3.8 ###
 

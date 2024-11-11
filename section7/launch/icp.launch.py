@@ -20,7 +20,7 @@ def generate_launch_description():
                 launch_arguments={
                     "config": PathJoinSubstitution(
                         [
-                            FindPackageShare("autonomy_repo"),
+                            FindPackageShare("section7"),
                             "rviz",
                             "default.rviz",
                         ]
@@ -44,7 +44,7 @@ def generate_launch_description():
             # student's navigator node
             Node(
                 executable="icp_node.py",
-                package="autonomy_repo",
+                package="section7",
                 parameters=[
                     {"use_sim_time": use_sim_time},
                 ]
